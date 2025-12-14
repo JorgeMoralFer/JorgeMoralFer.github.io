@@ -1,866 +1,1527 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal profile: Jorge Moral</title>
+    <title>Jorge Moral | Data & Performance</title>
+    
+    <!-- Fonts: Combining the best of both -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons & Animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
     <style>
-        /* Añadimos algunos estilos básicos para la presentación */
+        :root {
+            /* Light & Blue Theme */
+            --bg-color: #f0f9ff; /* Very light blue/white */
+            --sidebar-bg: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --text-main: #1e293b; /* Dark Slate */
+            --text-muted: #64748b; /* Slate */
+            
+            /* Accents */
+            --accent-blue: #0284c7; /* Strong Blue */
+            --accent-gold: #d4af37;
+            --glass-border: rgba(2, 132, 199, 0.1);
+            
+            /* Fonts */
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* cursor: none; Removed custom cursor */
+        }
+
         body {
-            font-family: 'Roboto', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f4f8;
-            color: #333;
-        }
-        header {
-            background-color: #005f99;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-        }
-        nav ul {
-            list-style: none;
-            padding: 0;
-            text-align: center;
-            background-color: #333;
-            margin: 0;
-        }
-        nav ul li {
-            display: inline;
-            margin: 0 15px;
-        }
-        nav ul li a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            cursor: pointer;
-        }
-        nav ul li a:hover {
-            color: #f9f9f9;
-        }
-        .section {
-            display: none;
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-        .section.active {
-            display: block;
-        }
-        /* Títulos más estilizados */
-        h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            color: #005f99;
-            margin-bottom: 20px;
-        }
-        h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 600;
-            color: #333;
-            margin-bottom: 10px;
-        }
-        .education-item, .experience-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            margin-bottom: 15px;
-        }
-        .education-item h3, .experience-item h3 {
-            font-size: 1.5rem;
-            color: #2b3a42;
-        }
-        /* Alineación de texto para Experience y Education */
-        .experience-item p, .education-item p {
-            font-size: 1.2rem;
-            text-align: left;
-            line-height: 1.8;
-            margin: 10px 0;
-        }
-        .experience-item ul, .education-item ul {
-            list-style: none;
-            padding-left: 0;
-            text-align: left;
-            margin: 0;
-        }
-        .experience-item ul li, .education-item ul li {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 10px;
-        }
-        /* Contenedor de las cajas de habilidades */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        /* Cada caja de habilidad */
-        .skill-box {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            text-align: left;
-            width: 250px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-        }
-        .skill-box:hover {
-            transform: scale(1.05);
-        }
-        .skill-box h3 {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
-        }
-        .skill-box i {
-            font-size: 50px;
-            margin: 10px 0;
-            color: #005f99;
-        }
-        .skill-box p {
-            font-size: 14px;
-            color: #666;
-            line-height: 1.5;
-            text-align: justify;
-        }
-        /* Projects container */
-        .projects-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            gap: 20px;
-        }
-        .project-box {
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            width: 300px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .project-box:hover {
-            transform: scale(1.05);
-        }
-        .project-box h3 {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-            margin: 10px 0;
-        }
-        .project-box p {
-            font-size: 14px;
-            color: #666;
-            text-align: justify;
-            line-height: 1.5;
-        }
-        .download-btn, .view-btn {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 8px 15px;
-            background-color: #005f99;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-        .download-btn:hover, .view-btn:hover {
-            background-color: #003f66;
-        }
-        .project-preview {
-            width: 100%;
-            max-width: 600px;
-            display: block;
-            margin: 10px auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease;
-        }
-        .project-preview:hover {
-            transform: scale(1.05);
-        }
-        #tennis {
-            text-align: left;
-            padding: 20px;
-            max-width: 800px;
-            margin: 20px auto;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        #tennis h2 {
-            font-size: 28px;
-            color: #005f99;
-            text-align: center;
-        }
-        #tennis h3 {
-            font-size: 22px;
-            color: #333;
-            margin-top: 20px;
-        }
-        #tennis p {
-            font-size: 16px;
-            color: #555;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-sans);
+            overflow-x: hidden;
             line-height: 1.6;
         }
-        #tennis ul {
-            list-style-type: disc;
-            margin-left: 20px;
+
+        h1, h2, h3, h4 {
+            font-family: var(--font-serif);
+            font-weight: 400;
+            color: var(--text-main);
         }
-        #tennis a {
-            color: #005f99;
-            text-decoration: none;
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- Layout Structure --- */
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
         }
-        #tennis a:hover {
-            text-decoration: underline;
+
+        /* --- Sidebar (Index 4 Structure + Index 2 Style) --- */
+        .sidebar {
+            width: 280px;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 50px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-right: 1px solid var(--glass-border);
+            background: var(--sidebar-bg);
+            z-index: 100;
+            box-shadow: 5px 0 30px rgba(0,0,0,0.02);
         }
-        #tennis .contact-info p {
-            font-size: 16px;
-            color: #555;
+
+        .brand {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-blue), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
-        #tennis .contact-info a {
-            color: #005f99;
-            text-decoration: none;
+
+        .nav-menu li { margin-bottom: 20px; }
+        .nav-menu a {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-        #tennis .contact-info a:hover {
-            text-decoration: underline;
+
+        .nav-menu a span {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            opacity: 0.5;
         }
-        .about-text {
-            background-color: #f0f4f8;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: left; /* Aligns text to the left */
-            max-width: 800px; /* Limits the width of the box */
-            width: 100%;
-            margin: 0 auto; /* Centers the box horizontally */
-            box-sizing: border-box;
+
+        .nav-menu a:hover, .nav-menu a.active {
+            color: var(--accent-blue);
         }
-        .experience-img {
-            width: 100%;
-            max-width: 200px;
+        
+        .nav-menu a.active span { opacity: 1; }
+
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent-blue);
+            transition: 0.3s;
+        }
+        .nav-menu a:hover::after { width: 20px; }
+
+        .socials { display: flex; gap: 15px; }
+        .socials a {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+        .socials a:hover { color: var(--accent-blue); transform: translateY(-3px); }
+
+        /* --- Main Content --- */
+        .main-content {
+            margin-left: 280px;
+            width: calc(100% - 280px);
+            position: relative;
+        }
+
+        section {
+            min-height: 100vh;
+            padding: 64px 7%; /* closer spacing to sections */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        /* --- Hero Section (Fusion) --- */
+        .hero {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            align-items: center;
+            gap: 50px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(2, 132, 199, 0.1) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .hero-text h1 {
+            font-size: 4.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-text h1 span {
             display: block;
-            margin: 10px auto;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            font-family: var(--font-serif);
+            font-weight: 400;
+            font-style: italic;
+            font-size: 3.5rem;
+            color: #003366;
         }
-        .profile-img {
-            width: 220px; /* Ajusta el tamaño de la imagen */
-            height: 220px;
-            border-radius: 50%; /* La convierte en un círculo */
-            object-fit: cover; /* Asegura que la imagen se recorte bien */
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var (--accent-blue);
+            margin-bottom: 30px;
+            font-family: var (--font-sans);
+            font-weight: 300;
+            height: 40px;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin-bottom: 40px;
+            font-size: 1.1rem;
+        }
+
+        /* --- CV Preview & Actions --- */
+        .cv-actions {
+            display: flex;
+            flex-direction: column; /* stack preview and button */
+            align-items: stretch; /* make children take full width when needed */
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .cv-preview-card {
+            width: 260px; /* slightly larger */
+            height: 360px; /* keep A4-ish ratio */
+            background: #fff;
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            position: relative;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15); /* Stronger shadow for depth */
+            overflow: hidden;
             display: block;
-            margin: 0 auto; /* Centra la imagen */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
-        .education-header {
+
+        .cv-preview-card:hover {
+            transform: translateY(-10px) rotate(2deg) scale(1.05); /* More pronounced hover effect */
+            box-shadow: 0 20px 40px rgba(2, 132, 199, 0.25);
+            border-color: var(--accent-blue);
+        }
+
+        .cv-preview-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            opacity: 0.9;
+            transition: 0.3s;
+        }
+
+        .cv-preview-card:hover img {
+            opacity: 1;
+        }
+
+        .cv-preview-card::after {
+            content: 'PDF';
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #fff;
+            background: var(--accent-blue);
+            padding: 2px 5px;
+            border-radius: 2px;
+        }
+
+        .btn-glow {
+            width: 260px;
+            padding: 12px 16px;
+            background: rgba(2, 132, 199, 0.12);
+            color: var(--accent-blue);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 8px; /* square-ish */
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: none;
+        }
+        .btn-glow::after { opacity: 0.8; }
+        .btn-glow:hover {
+            background: rgba(2, 132, 199, 0.2);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.18);
+            border-color: var(--accent-blue);
+        }
+
+        /* Morphing Image from Index 2 */
+        .hero-img {
+            width: 100%;
+            max-width: 400px;
+            aspect-ratio: 1;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.1);
+            box-shadow: 0 0 50px rgba(56, 189, 248, 0.15);
+            animation: morph 8s ease-in-out infinite;
+            margin: 0 auto;
+            display: block;
+        }
+
+        @keyframes morph {
+            0% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+            50% { border-radius: 30% 60% 70% 40%/50% 60% 30% 60%; }
+            100% { border-radius: 60% 40% 30% 70%/60% 30% 70% 40%; }
+        }
+
+        /* --- Approach Card (Home) --- */
+        .approach-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+            box-shadow: 0 10px 30px rgba(2, 132, 199, 0.06);
+            display: grid;
+            grid-template-columns: 56px 1fr;
+            gap: 16px;
+            align-items: start;
+            max-width: 720px;
+        }
+        .approach-icon {
+            width: 56px;
+            height: 56px;
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            width: 100%;
+            justify-content: center;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-blue), #38bdf8);
+            color: #fff;
+            box-shadow: 0 8px 20px rgba(2,132,199,0.25);
+            font-size: 1.4rem;
+        }
+        .approach-content h4 {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: #003366;
+            margin: 2px 0 10px;
+        }
+        .approach-content p {
+            color: var(--text-main);
+            font-size: 0.98rem;
+            line-height: 1.9;
+            text-align: justify;           /* Word-like alignment */
+            text-justify: inter-word;      /* Better spacing between words */
+            hyphens: auto;                 /* Natural hyphenation */
+        }
+        .approach-divider {
+            height: 1px;
+            background: linear-gradient(to right, rgba(2,132,199,0.25), rgba(2,132,199,0.08));
+            margin: 12px 0 10px;
         }
 
-        .education-header h3 {
-            margin: 0;
-            flex-grow: 0;
+        /* --- Experience (Glass Cards) --- */
+        .section-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-blue);
+            margin-bottom: 60px;
+            display: block;
+            opacity: 0.8;
         }
 
-        .education-logo-uc3m {
-            width: 300px; /* Tamaño del logo de la UC3M */
-            height: auto;
-            margin-left: 20px;
+        /* Experience Grid (From Index 4) */
+        .experience-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 60px;
         }
 
-        .education-logo-uam {
-            width: 200px; /* Tamaño más pequeño para el logo de la UAM */
-            height: auto;
-            margin-left: 0; /* Eliminar el margen izquierdo para moverlo hacia la izquierda */
-            margin-right: 70px; /* Un pequeño margen derecho si quieres separación */
-        }
-        .education-logo-palas {
-            width: 200px; /* Tamaño más pequeño para el logo de la UAM */
-            height: auto;
-            margin-left: 0; /* Eliminar el margen izquierdo para moverlo hacia la izquierda */
-            margin-right: 90px; /* Un pequeño margen derecho si quieres separación */
-        }
-        .education-header-palas {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .education-header-palas h3 {
-            margin: 0;
-            flex-grow: 1;
-            text-align: left; /* Asegura que el texto quede alineado a la izquierda */
-        }
-
-        .education-logo-palas {
-            width: 100px; /* Tamaño del logo de Palas Atenea */
-            height: auto;
-            margin-left: 70px; /* Espacio entre el logo y el nombre */
-        }
-        .education-header-rfet {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-        }
-
-        .education-header-rfet h3 {
-            margin: 0;
-            flex-grow: 0;
-            text-align: left; /* Asegura que el texto quede alineado a la izquierda */
-        }
-
-        .education-logo-rfet {
-            width: 150px; /* Tamaño del logo de RFET */
-            height: auto;
-            margin-left: 0px; /* Espacio entre el logo y el nombre */
-            margin-right: 30px
-        }
-
-        /* Contenedor de habilidades: Fuerza que las cajas estén en línea */
-        .about-skills-container {
-            display: flex;
-            justify-content: space-between; /* Separa las cajas */
-            align-items: flex-start;
-            flex-wrap: nowrap;
+        .job-card {
+            display: grid;
+            grid-template-columns: 200px 1fr;
             gap: 40px;
-            margin-top: 20px;
+            align-items: flex-start;
+            transition: 0.3s;
         }
 
-        /* Caja de habilidades */
-        .about-skills-box {
-            flex: 1;
-            max-width: 48%;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        .job-date {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: right;
+        }
+
+        .job-details h3 {
+            font-size: 2rem;
+            margin-bottom: 5px;
+            color: var(--text-main);
+        }
+
+        .job-details h4 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--accent-blue);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .job-details p {
+            color: var(--text-muted);
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+
+        @media (max-width: 768px) {
+            .job-card { grid-template-columns: 1fr; gap: 10px; }
+            .job-date { text-align: left; margin-bottom: 5px; }
+        }
+
+        /* Experience logos: squared and larger for Bankinter */
+        .job-logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            border-radius: 8px; /* subtle corner */
+            border: 1px solid var(--glass-border); /* framed look */
+            background: #fff; /* clean background */
+            padding: 6px; /* inner spacing to avoid crop */
+        }
+        .job-logo.bankinter {
+            width: 170px; /* bigger than Tie */
+            height: 170px;
+        }
+        @media (max-width: 768px) {
+            .job-logo { width: 100px; height: 100px; }
+            .job-logo.bankinter { width: 120px; height: 120px; }
+        }
+
+        /* --- Projects (Gallery Grid) --- */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 40px;
+        }
+
+        .project-item {
+            group: 1;
+        }
+
+        .project-img-wrapper {
+            height: 300px;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 20px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .project-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.7s;
+            filter: grayscale(80%) contrast(1.2);
+        }
+
+        .project-item:hover img {
+            transform: scale(1.05);
+            filter: grayscale(0%) contrast(1);
+        }
+
+        .project-img-wrapper img.tennis-img {
+            transform: scale(0.92); /* show more of the image, less crop */
+            object-position: center top; /* keep important area visible */
+        }
+        .project-item:hover .project-img-wrapper img.tennis-img {
+            transform: scale(0.96); /* subtle hover zoom for tennis projects */
+        }
+
+        .project-info h3 { font-size: 1.5rem; margin-bottom: 10px; }
+        .project-info p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 15px; }
+        
+        .link-arrow {
+            color: var(--accent-blue);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .link-arrow i { transition: 0.3s; }
+        .project-item:hover .link-arrow i { transform: translateX(5px); }
+
+        /* --- Tennis (Editorial + Video) --- */
+        .tennis-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px; /* bring photo and video closer to the section */
+            align-items: center;
+        }
+
+        .tennis-quote {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-style: italic;
+            color: var(--text-main);
+            line-height: 1.4;
+            margin-bottom: 30px;
+            border-left: 3px solid var(--accent-gold);
+            padding-left: 30px;
+        }
+
+        .video-container {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 480px; /* smaller tennis media size */
+        }
+
+        .video-container video {
+            width: 100%;
+            display: block;
+        }
+
+        /* --- About layout adjustments --- */
+        .about-container {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr; /* bring contact cards up, same height as text */
+            gap: 3rem;
+            align-items: start; /* align both columns at the top */
+        }
+        .about-details .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-align: left;
+            padding: 1rem;
+            margin: 0; /* remove extra spacing */
+        }
+        .about-details {
+            display: grid;
+            gap: 1rem;
+            align-content: start; /* keep cards at same height as text */
+        }
+
+        /* --- Professional Skills (distinct styles) --- */
+        .skills-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* allow 3 cards on desktop */
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        /* Technical: blueprint card */
+        .skills-card.tech {
+            background: linear-gradient(180deg, rgba(2,132,199,0.08), rgba(255,255,255,0.9));
+            border: 1px solid rgba(2,132,199,0.2);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 10px 24px rgba(2,132,199,0.08);
+        }
+        .skills-card.tech .skills-header i { color: var(--accent-blue); }
+        .skills-card.tech .skill-bar { background: rgba(2,132,199,0.12); border-color: rgba(2,132,199,0.25); }
+        .skills-card.tech .skill-fill { background: linear-gradient(90deg, #0284c7, #38bdf8); }
+
+        /* Soft: executive gold card */
+        .skills-card.soft {
+            background: linear-gradient(180deg, rgba(212,175,55,0.08), rgba(255,255,255,0.92));
+            border: 1px solid rgba(212,175,55,0.25);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 10px 24px rgba(212,175,55,0.10);
+        }
+        /* Methodologies card: neutral professional */
+        .skills-card.methods {
+            background: linear-gradient(180deg, rgba(99,102,241,0.06), rgba(255,255,255,0.96));
+            border: 1px solid rgba(99,102,241,0.22);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            box-shadow: 0 10px 24px rgba(99,102,241,0.10);
+        }
+        .skills-card.methods .skills-header i { color: #6366F1; }
+        .skills-list {
+            display: grid;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .skills-list .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        .skills-list .item i { color: #6366F1; }
+
+        /* Restore stats-grid visuals (Master & Bachelor) */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+            transition: 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .stat-card i { font-size: 2rem; color: var(--accent-blue); margin-bottom: 0.5rem; }
+
+        /* --- Timeline (Snake/Sided Layout) --- */
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        /* The central line */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 70%; /* Line positioned to the right of the main content */
+            width: 2px;
+            background: var(--glass-border);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 70%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--bg-color);
+            border: 4px solid var(--accent-blue);
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .timeline-content {
+            width: 60%; /* slightly narrower to make text flow more vertically */
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            transition: 0.3s;
+            position: relative;
+            padding-right: 260px; /* extra room to avoid text overlapping with logos */
+            line-height: 1.85; /* a bit more vertical rhythm */
+        }
+
+        .timeline-content:hover {
+            transform: translateX(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .timeline-content h4 {
+            font-family: 'Manrope', sans-serif;
+            font-weight: 600;
+            color: #003366;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        .timeline-logo {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 24px; /* slight shift to the right */
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            opacity: 0.9;
+        }
+
+        .timeline-logo.uc3m {
+            width: 220px;
+            height: 220px;
+        }
+        .timeline-logo.excellence {
+            width: 160px;
+            height: 160px;
+        }
+        @media (max-width: 768px) {
+            .timeline-logo { width: 130px; height: 130px; }
+            .timeline-logo.uc3m { width: 150px; height: 150px; }
+            .timeline-logo.excellence { width: 120px; height: 120px; }
+        }
+
+        .timeline-date-box {
+            width: 25%; /* Date on the right */
+            padding-left: 20px;
             text-align: left;
         }
 
-        /* Estilos de las barras de progreso */
-        .skill-bar {
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            height: 15px;
-            margin: 10px 0;
-            width: 100%;
-        }
-
-        .skill-fill {
-            height: 100%;
-            border-radius: 10px;
-            text-align: right;
-            padding-right: 10px;
-            font-size: 12px;
-            color: white;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-        /* Colores y niveles de las habilidades */
-        .skill-fill.data-analysis { background: #007acc; width: 90%; }
-        .skill-fill.critical-thinking { background: #00b894; width: 85%; }
-        .skill-fill.problem-solving { background: #ff7675; width: 85%; }
-        .skill-fill.teamwork { background: #fdcb6e; width: 100%; }
-
-        .skill-fill.adaptability { background: #6c5ce7; width: 80%; }
-        .skill-fill.communication { background: #e17055; width: 100%; }
-        .skill-fill.time-management { background: #0984e3; width: 80%; }
-        .skill-fill.leadership { background: #00cec9; width: 100%; }
-
-        /* Para móviles, se apilan */
-        @media (max-width: 768px) {
-            .about-skills-container {
-                flex-wrap: wrap;
-            }
-            .about-skills-box {
-                max-width: 100%;
-            }
-        }
-        .experience-item h3 {
-            color: #00b0f0; /* Azul claro */
-        }
-        #tennis img, #tennis-video video {
+        .timeline-date-text {
+            font-family: var(--font-serif);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            opacity: 0.8;
             display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        #tennis-video video {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            max-width: 60%;  /* Ajusta el porcentaje según lo que desees */
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        }
-
-
-        #tennis img {
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-        #skills {
-            padding: 50px;
-            background-color: #f9f9f9;
-        }
-
-        #skills h2 {
-            text-align: center;
-            font-size: 2.5em;
-            font-weight: bold;
-            color: #3498db; /* Color igual al de otras secciones */
-            margin-bottom: 30px;
-        }
-
-        .skills-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            padding: 0 10%;
-        }
-
-        .skill-box {
-            background-color: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 80%;
-            max-width: 600px;
-            padding: 30px 20px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .skill-box i {
-            font-size: 3em;
-            color: #007BFF;
-            margin-bottom: 10px;
-        }
-
-        .skill-box h3 {
-            font-size: 1.3em;
-            color: #333;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-
-        .skill-box p {
-            font-size: 1em;
-            color: #666;
-            line-height: 1.5;
-        }
-
-        .skill-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        /* Colores de fondo diferenciados */
-        .skill-box:nth-child(1) { background-color: #f0f8ff; } /* Light blue */
-        .skill-box:nth-child(2) { background-color: #e6ffe6; } /* Light green */
-        .skill-box:nth-child(3) { background-color: #fff5e6; } /* Light orange */
-        .skill-box:nth-child(4) { background-color: #f1e6ff; } /* Light purple */
-        .skill-box:nth-child(5) { background-color: #f0f0f0; } /* Light gray */
-
-        /* Barras de progreso */
-        .skill-bar {
-            width: 100%;
-            background-color: #ddd;
-            border-radius: 5px;
-            margin-top: 10px;
-            height: 10px;
-            overflow: hidden;
-        }
-
-        .skill-fill {
-            height: 100%;
-            background-color: #007bff;
-            border-radius: 5px;
-        }
-
-        .cv-links {
-            margin-top: 20px;
-            text-align: center;
-        }
-
-        .cv-previews {
-            display: flex; /* Align the items in a row */
-            justify-content: space-evenly; /* Space out the items evenly */
-            gap: 20px; /* Add some space between each preview */
-            margin-top: 20px;
-        }
-
-        .cv-preview {
-            text-align: center;
-            flex-basis: 45%; /* Adjust the size of the previews */
-        }
-
-        .cv-image {
-            width: 250px;  /* Set a smaller size for the images */
-            height: auto;
-            object-fit: cover;
-            border-radius: 5px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .cv-preview:hover .cv-image {
-            transform: scale(1.05);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-        }
-
-        .cv-preview p {
-            font-size: 14px;
-            margin-top: 5px;
-            color: #555;
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
         
+        .timeline-role {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+        }
 
+        /* Timeline subpoints styling */
+        .timeline-subpoints {
+            margin-top: 10px;
+            padding-left: 0;
+            list-style: none;
+            display: grid;
+            gap: 8px;
+        }
+        .timeline-subpoints li {
+            display: grid;
+            grid-template-columns: 22px 1fr;
+            align-items: start;
+            gap: 10px;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+        .timeline-subpoints .dot {
+            width: 22px;
+            height: 22px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background: rgba(2,132,199,0.10);
+            color: var(--accent-blue);
+        }
+        .timeline-subpoints.small li { font-size: 0.9rem; color: var(--text-muted); }
 
+        /* --- Final Media (Photo + Video + Summary) --- */
+        .final-media-grid {
+            width: 100%;
+            margin: 40px auto 60px auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .final-media-photo,
+        .final-media-video {
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--card-bg);
+        }
+        .final-media-photo img { width: 100%; display: block; }
+        .final-media-video video { width: 100%; display: block; }
+        .final-summary {
+            margin-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        @media (max-width: 1024px) {
+            .final-media-grid { grid-template-columns: 1fr; }
+        }
+
+        /* --- Responsive --- */
+        @media (max-width: 1024px) {
+            .sidebar { width: 80px; padding: 30px 15px; align-items: center; }
+            .brand { font-size: 1.2rem; writing-mode: vertical-rl; transform: rotate(180deg); margin-bottom: auto; }
+            .nav-menu span, .nav-menu a::after { display: none; }
+            .nav-menu { margin: auto 0; }
+            .socials { flex-direction: column; margin-top: auto; }
+            .main-content { margin-left: 80px; width: calc(100% - 80px); }
+            .hero { grid-template-columns: 1fr; text-align: center; padding-top: 50px; }
+            .hero-img { margin: 30px auto; width: 300px; }
+            .hero-text h1 { font-size: 3.5rem; }
+            .hero-text h1 span { font-size: 4rem; }
+            .hero p { margin: 0 auto 30px; }
+            .tennis-layout { grid-template-columns: 1fr; }
+            .skills-wrapper { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .wrapper { flex-direction: column; }
+            .sidebar { 
+                width: 100%; height: 70px; position: fixed; top: 0; left: 0; 
+                flex-direction: row; padding: 0 20px; align-items: center;
+                border-right: none; border-bottom: 1px solid var(--glass-border);
+                background: rgba(11, 17, 32, 0.95); backdrop-filter: blur(10px);
+            }
+            .brand { writing-mode: horizontal-tb; transform: none; margin: 0; font-size: 1.5rem; }
+            .nav-menu { display: none; } /* Mobile menu hidden for simplicity */
+            .socials { display: none; }
+            .main-content { margin-left: 0; width: 100%; margin-top: 70px; }
+            .cursor { display: none; }
+            section { padding: 60px 5%; }
+            .project-grid { grid-template-columns: 1fr; }
+            .timeline-container::before { left: 20px; }
+            .timeline-dot { left: 20px; }
+            .timeline-item { flex-direction: column-reverse; align-items: flex-start; gap: 20px; }
+            .timeline-content { width: 100%; margin-left: 40px; width: calc(100% - 40px); padding-right: 0; }
+            .timeline-date-box { width: 100%; padding-left: 40px; text-align: left; margin-bottom: 10px; }
+            .timeline-logo {
+                position: relative;
+                top: 0;
+                transform: none;
+                right: 0;
+                margin-bottom: 15px;
+                width: 110px; /* slightly bigger but reasonable on mobile */
+                height: 110px;
+            }
+            .timeline-logo.uc3m { width: 120px; height: 120px; }
+            .timeline-logo.excellence { width: 100px; height: 100px; }
+        }
+
+        /* --- Skills (Bars) --- */
+        .skills-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3.5rem; /* more separation from previous content */
+        }
+        .skills-card {
+            background: var(--card-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.25rem 1.5rem;
+            opacity: 0; /* start hidden for animation */
+            transform: translateY(20px);
+            transition: opacity 600ms ease, transform 600ms ease;
+        }
+        .skills-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .skills-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 0.75rem;
+        }
+        .skills-header i { color: var(--accent-blue); }
+        .skills-header h4 {
+            font-family: var(--font-sans);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .skills-desc {
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            margin-bottom: 1rem;
+        }
+        .skill-item { margin: 12px 0; }
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            margin-bottom: 6px;
+        }
+        .skill-bar {
+            position: relative;
+            height: 10px;
+            background: rgba(2, 132, 199, 0.12);
+            border: 1px solid var(--glass-border);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+        .skill-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 999px;
+            width: 0; /* animated in */
+            background: linear-gradient(90deg, #0284c7, #38bdf8);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+            transition: width 900ms ease;
+        }
+        .skills-card.visible .skill-fill[data-progress] {
+            width: attr(data-progress percentage);
+        }
+        .skill-fill.soft {
+            background: linear-gradient(90deg, #d4af37, #facc15);
+            box-shadow: 0 6px 16px rgba(212, 175, 55, 0.25);
+        }
+        @media (max-width: 1024px) {
+            .skills-wrapper { grid-template-columns: 1fr; }
+        }
+        .play-video-btn {
+            width: 220px;
+            padding: 12px 16px;
+            background: rgba(2, 132, 199, 0.12);
+            color: var(--accent-blue);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: 0.2s ease;
+        }
+        .play-video-btn:hover { background: rgba(2,132,199,0.2); border-color: var(--accent-blue); }
+
+        /* --- Justified text utility --- */
+        .justify {
+            text-align: justify;
+            text-justify: inter-word;
+            hyphens: auto;
+        }
+
+        /* --- Professional bullet list --- */
+        .bullet-list {
+            display: grid;
+            gap: 10px;
+            margin: 8px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .bullet-item {
+            display: grid;
+            grid-template-columns: 24px 1fr;
+            align-items: start;
+            gap: 10px;
+            color: var(--text-main);
+            font-size: 0.98rem;
+        }
+        .bullet-icon {
+            width: 24px;
+            height: 24px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            background: rgba(2,132,199,0.12);
+            color: var(--accent-blue);
+        }
+        .bullet-item p { margin: 0; text-align: justify; text-justify: inter-word; hyphens: auto; }
+
+        .job-details .tags { margin-top: 14px; } /* push tech tags a bit lower */
+
+        .gpa-line {
+            display: inline-block;
+            margin-top: 8px;
+            color: var(--accent-blue);
+            font-weight: 600;
+        }
+
+        /* --- Selected Works: add color accents --- */
+        #projects .section-label { color: #0ea5e9; }
+        .project-grid { gap: 36px; }
+        .project-item {
+            background: linear-gradient(180deg, rgba(2,132,199,0.06), rgba(255,255,255,0.95));
+            border: 1px solid rgba(2,132,199,0.18);
+            border-radius: 14px;
+            padding: 16px;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .project-item:hover {
+            transform: translateY(-4px);
+            border-color: #0ea5e9;
+            box-shadow: 0 16px 28px rgba(14,165,233,0.15);
+        }
+        .project-img-wrapper {
+            border: 1px solid rgba(2,132,199,0.22);
+        }
+        .project-info h3 {
+            background: linear-gradient(90deg, #0284c7, #38bdf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .link-arrow { color: #0ea5e9; }
+        .link-arrow:hover { color: #0284c7; }
+        .project-tagline {
+            display: inline-block;
+            margin-top: 6px;
+            font-size: 0.8rem;
+            color: #0369a1;
+            background: rgba(14,165,233,0.12);
+            border: 1px solid rgba(14,165,233,0.25);
+            padding: 4px 8px;
+            border-radius: 999px;
+        }
     </style>
 </head>
 <body>
 
-<header>
-    <h1>Jorge Moral Fernandez</h1>
-</header>
+    <!-- Custom Cursor Removed -->
+    <!-- <div class="cursor"></div> -->
 
-<nav>
-    <ul>
-        <li><a href="javascript:void(0);" onclick="showSection('about')">About Me</a></li>
-        <li><a href="javascript:void(0);" onclick="showSection('experience')">Experience</a></li>
-        <li><a href="javascript:void(0);" onclick="showSection('education')">Education</a></li>
-        <li><a href="javascript:void(0);" onclick="showSection('skills')">Skills</a></li>
-        <li><a href="javascript:void(0);" onclick="showSection('projects')">Projects</a></li>
-        <li><a href="javascript:void(0);" onclick="showSection('tennis')">Tennis</a></li>
-    </ul>
-</nav>
+    <div class="wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">JM.</div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="active"><span>01.</span> Home</a></li>
+                <li><a href="#about"><span>02.</span> About</a></li>
+                <li><a href="#experience"><span>03.</span> Experience</a></li>
+                <li><a href="#education"><span>04.</span> Education</a></li>
+                <li><a href="#projects"><span>05.</span> Projects</a></li>
+                <li><a href="#tennis"><span>06.</span> Tennis</a></li>
+            </ul>
 
-<div id="about" class="section active">
-    <h2>About Me</h2>
-    <img src="img/Jorge2.jpg" alt="Photo of Jorge Moral Fernández" class="profile-img">
-    <div class="about-text">
-        <p>I am Jorge, a passionate data analyst and tennis enthusiast. With a background in Mathematics and a Master's in Big Data Analytics, I have combined my experience as a tennis coach and player with statistical analysis to optimize performance and make data-driven decisions in sports.</p>
-        <p>📧 Email: jorge.moralf@gmail.com</p>
-        <p>🔗 LinkedIn: <a href="https://linkedin.com/in/jorge-moral-b043bb285" target="_blank">linkedin.com/in/jorge-moral</a></p>
-        <p>💻 GitHub: https://jorgemoralfer.github.io/</p>
-        <p>📍 Location: Madrid, Spain</p>
-    </div>
-
-    <div class="about-skills-container">
-        <!-- Hard Skills -->
-        <div class="about-skills-box">
-            <h3>Core Skills</h3>
-            <p>Data Analysis</p>
-            <div class="skill-bar"><div class="skill-fill data-analysis">90%</div></div>
-    
-            <p>Critical Thinking</p>
-            <div class="skill-bar"><div class="skill-fill critical-thinking">85%</div></div>
-    
-            <p>Problem Solving</p>
-            <div class="skill-bar"><div class="skill-fill problem-solving">85%</div></div>
-    
-            <p>Teamwork</p>
-            <div class="skill-bar"><div class="skill-fill teamwork">100%</div></div>
-        </div>
-    
-        <!-- Soft Skills -->
-        <div class="about-skills-box">
-            <h3>Personal Attributes</h3>
-            <p>Adaptability</p>
-            <div class="skill-bar"><div class="skill-fill adaptability">80%</div></div>
-    
-            <p>Communication</p>
-            <div class="skill-bar"><div class="skill-fill communication">100%</div></div>
-    
-            <p>Time Management</p>
-            <div class="skill-bar"><div class="skill-fill time-management">80%</div></div>
-    
-            <p>Leadership</p>
-            <div class="skill-bar"><div class="skill-fill leadership">100%</div></div>
-        </div>
-    </div>
-
-    <!-- Links to CVs with preview images -->
-    <div class="cv-links">
-        <h3>My CVs</h3>
-        <p>Below are links to my CVs. Feel free to explore them for more detailed information about my background.</p>
-        
-        <!-- CV Previews with images -->
-        <div class="cv-previews">
-            <div class="cv-preview">
-                <a href="Curriculum Jorge Moral Fdez.pdf" target="_blank">
-                    <img src="img/curriculumbasic.png" alt="CV Preview 1" class="cv-image">
-                </a>
-                <p>Traditional CV</p>
+            <div class="socials">
+                <a href="https://linkedin.com/in/jorge-moral-b043bb285" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                <a href="mailto:jorge.moralf@gmail.com"><i class="fas fa-envelope"></i></a>
+                <a href="https://github.com/jorgemoralfer" target="_blank"><i class="fab fa-github"></i></a>
             </div>
-        
-        </div>
-    </div>
-    
-</div>
+        </aside>
 
-
-<!-- Sección de Experience -->
-<div id="experience" class="section">
-    <h2>Experience</h2>
-    <div class="experience-item">
-        <h3>Tie-Break Tennis</h3>
-        <p><strong>Professional Tennis Coach</strong> (2020 - Present)</p>
-        <ul>
-            <li>Created personalized training sessions for players of all ages and skill levels, focusing on technique, tactics, and fitness. Tailored coaching methods for both group and one-on-one sessions to suit individual needs.</li>
-            <li>Helped players prepare for competitions by coming up with strategies, boosting performance, and strengthening mental toughness. Maintained a positive, motivating environment to encourage growth and good sportsmanship.</li>
-        </ul>
-        <img src="img/fototie.png" alt="Tie-Break Tennis" class="experience-img">
-        <a href="RecomendacionJorge.pdf" class="download-btn" target="_blank">View Recommendation Letter</a>
-    </div>
-
-    <div class="experience-item">
-    <h3>Additional Experience</h3>
-    <p><strong> 1. Private Tutor – Mathematics, Physics & Technical Drawing</strong> </p>
-    <ul>
-        <li>Provided one-on-one tutoring to high school students in Mathematics, Physics, and Technical Drawing. Tailored lesson plans to meet the specific needs of each student, helping them improve their academic performance.</li>
-        <li>Assisted students in preparing for university entrance exams by strengthening their problem-solving and analytical skills. Focused on deepening their understanding of key concepts through practical examples and real-world applications.</li>
-    </ul>
-</div>
-
-</div>
-
-<!-- Sección de Education -->
-<div id="education" class="section">
-    <h2>Education</h2>
-    <div class="education-item">
-        <div class="education-header">
-            <h3>Universidad Carlos III, Madrid</h3>
-            <img src="img/carlosIII.png" alt="Logo UC3M" class="education-logo-uc3m">
-        </div>
-        <p><strong>Master in Big Data Analytics</strong> (2024 – June 2025)</p>
-        <p><strong>GPA:</strong> 9.1</p>
-        <p><strong>Relevant Coursework:</strong> Mathematics & Statistics for Data Analysis, Business Applications of Big Data Analytics, Machine Learning, Bayesian Learning, Predictive Modeling.</p>
-    </div>
-    
-    <div class="education-item">
-        <div class="education-header">
-            <h3>Universidad Autónoma, Madrid</h3>
-            <img src="img/uam.png" alt="Logo UAM" class="education-logo-uam">
-        </div>
-        <p><strong>Degree in Mathematics</strong> (2020 - 2024)</p>
-        <p><strong>GPA:</strong> 8.2</p>
-        <p><strong>Relevant Coursework:</strong> Probability Theory, Linear Algebra, Mathematical Statistics, Numerical Methods, Optimization, Real Analysis.</p>
-    </div>
-    
-    <div class="education-item">
-        <div class="education-header-palas">
-            <h3>IES Palas Atenea</h3>
-            <img src="img/palas.jpg" alt="Logo IES Palas Atenea" class="education-logo-palas">
-        </div>
-        <p><strong>Excellence Program High School Diploma</strong> (2018 - 2020)</p>
-    </div>
-    
-    
-    <div class="education-item">
-        <div class="education-header-rfet">
-            <h3>Real Federación Española de Tenis (RFET)</h3>
-            <img src="img/rfet.png" alt="Logo RFET" class="education-logo-rfet">
-        </div>
-        <p><strong>Certified Tennis Coach</strong></p>
-        <p><strong>Intensive Training Course at Jonathan Markson Tennis</strong> (2019 - 2020)</p>
-        <p><strong>Title:</strong> Monitor Nacional de Tenis</p> <!-- Título añadido debajo -->
-    </div>    
-</div>
-
-<div id="skills" class="section">
-    <h2>Technical Expertise & Skills</h2>
-    <div class="skills-container">
-        <div class="skill-box">
-            <i class="fas fa-database"></i> 
-            <h3>Data Analysis</h3>
-            <p>Proficient in handling and analyzing large datasets using SQL, R, and Python. Strong background in statistical analysis, predictive modeling, and data mining.</p>
-            <div class="skill-bar"><div class="skill-fill" style="width: 90%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <i class="fas fa-brain"></i>
-            <h3>Machine Learning & AI</h3>
-            <p>Experienced in applying machine learning models for predictive analytics, with expertise in supervised/unsupervised learning and neural networks.</p>
-            <div class="skill-bar"><div class="skill-fill" style="width: 80%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <i class="fas fa-cloud"></i>
-            <h3>Big Data Tools</h3>
-            <p>Knowledgeable in Apache Hadoop, Spark, and MongoDB, with experience in distributed computing and data processing at scale.</p>
-            <div class="skill-bar"><div class="skill-fill" style="width: 75%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <i class="fas fa-chart-line"></i>
-            <h3>Data Visualization</h3>
-            <p>Experienced in creating interactive and insightful visualizations with Power BI, Tableau, and ShinyApps.</p>
-            <div class="skill-bar"><div class="skill-fill" style="width: 85%;"></div></div>
-        </div>
-        <div class="skill-box">
-            <i class="fas fa-tennis-ball"></i>
-            <h3>Tennis Coaching & Analytics</h3>
-            <p>Combines tennis coaching expertise with data-driven analysis to optimize performance. Experienced in match data tracking and player improvement strategies.</p>
-            <div class="skill-bar"><div class="skill-fill" style="width: 95%;"></div></div>
-        </div>
-    </div>                       
-</div>
-
-
-
-
-
-<div id="projects" class="section">
-    <h2>Projects</h2>
-    <div class="projects-container">
-        <div class="project-box">
-            <h3>Mathematics Bachelor's Thesis</h3>
-            <p>Focused on the theoretical study of gradient flow theory and its application to cost function minimization in neural network training. The project explores the mathematical foundations of optimization techniques used in deep learning, analyzing convergence properties and stability of gradient-based methods.</p>
+        <!-- Main Content -->
+        <main class="main-content">
             
-            <a href="projects/TFG_Memoria_Jorge_Moral.pdf" target="_blank">
-                <img src="img/Tfg_preview.png" alt="Preview of Mathematics Bachelor's Thesis" class="project-preview">
-            </a>
-        </div>
-        
+            <!-- Hero Section -->
+            <section id="home" class="hero">
+                <div class="hero-text animate__animated animate__fadeInLeft">
+                    <h1>Jorge Moral<br><span>Data Scientist & Risk Analyst</span></h1>
+                    <div class="hero-subtitle">I am a <span id="typewriter"></span></div>
+                    <p class="justify">Data Scientist and Risk Analyst with a strong mathematical foundation and a unique dual background in high-performance sports.
+                        I specialize in transforming uncertainty into actionable insights through advanced statistical modeling, machine learning, and data-driven decision-making.
+                    
+                        I bridge the gap between data science, risk analysis, and real-world strategy, combining analytical rigor with the mindset of an elite sports coach.</p>
+                    
+                    <div class="cv-actions">
+                        <a href="Curriculum - Jorge Moral.pdf" target="_blank" class="cv-preview-card" title="Preview CV">
+                            <img src="img/curr_prev.png" alt="CV Preview">
+                        </a>
+                        <a href="Curriculum - Jorge Moral.pdf" target="_blank" class="btn-glow">Download CV</a>
+                    </div>
 
-        <div class="project-box">
-            <h3>Master's Thesis on Recommender Systems</h3>
-            <p>Master's Thesis on building a recommender system using collaborative filtering and machine learning techniques.</p>
-            
-            <p>⏳ In Progress...</p>
-            <a href="projects/Recommender_System_TFM.html" target="_blank">
-                <img src="img/tfmrecom.png" alt="Preview of Recommender System" class="project-preview">
-            </a>
-        </div>
-        
-    
-        <div class="project-box">
-            <h3>Temporal Analysis of Tennis Evolution</h3>
-            <p>Research project analyzing trends in professional tennis using statistical models and data science techniques.</p>
-            
-            <a href="projects/TimeSeries_ATP_new.html" target="_blank">
-                <img src="img/tennis_preview.png" alt="Preview of the Tennis Project" class="project-preview">
-            </a>
-        </div>
-        
-        <div class="project-box">
-            <h3>Modeling Tennis Predictions: ATP Analysis</h3>
-            <p>Study on prediction models related to tennis, focusing on match outcomes and player performance analysis.</p>
-            
-            <a href="projects/ATP_analysis_final.html" target="_blank">
-                <img src="img/atp_analysis_preview.png" alt="Preview of ATP Analysis" class="project-preview">
-            </a>
-        </div>
-        
+                    <!-- My Approach (styled card) -->
+                    <div class="approach-card">
+                        <div class="approach-icon"><i class="fas fa-compass"></i></div>
+                        <div class="approach-content">
+                            <h4>My Approach</h4>
+                            <div class="approach-divider"></div>
+                            <ul class="bullet-list">
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-bullseye"></i></span><p>Data creates value only when it drives better decisions.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-shield-alt"></i></span><p>Models must be interpretable, robust, and aligned with strategic objectives.</p></li>
+                                <!-- Replaced the third point with a clearer, more professional statement -->
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-route"></i></span><p>Bridge analysis and execution: communicate insights clearly, tie them to actions, and measure impact.</p></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-visual animate__animated animate__fadeInRight">
+                    <img src="img/Jorge2.jpg" alt="Jorge Moral" class="hero-img">
+                </div>
+            </section>
+
+            <!-- About Section (Imported from Index 2) -->
+            <section id="about">
+                <span class="section-label">About Me</span>
+                <div class="about-container">
+                    <div class="about-text">
+                        <h3 style="font-size: 2rem; margin-bottom: 20px;">The Analyst & The Coach</h3>
+                        <p class="justify" style="color: var(--text-muted); margin-bottom: 20px;">I am a Data Scientist and Analyst with a Degree in Mathematics and a Master’s in Big Data Analytics and Artificial Intelligence. My professional focus lies in predictive modeling, risk analysis, and applied machine learning, where I design models that support strategic decisions in uncertain environments.</p>
+                        <p class="justify" style="color: var(--text-muted); margin-bottom: 20px;">In parallel, I am a professional tennis coach, actively working in performance development, training optimization, and competitive analysis. This dual career has shaped a distinctive professional profile: I approach data problems the same way I approach athlete development through pattern recognition, feedback loops, and continuous improvement.</p>
+                        
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <i class="fas fa-graduation-cap"></i>
+                                <h3>Master's</h3>
+                                <p>Big Data Analytics</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-square-root-variable"></i>
+                                <h3>Bachelor</h3>
+                                <p>Mathematics</p>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-trophy"></i>
+                                <h3>Coach</h3>
+                                <p>RFET Certified</p>
+                            </div>
+                        </div>
+
+                        <!-- Skills Section (placed lower in About) -->
+                        <div class="skills-wrapper">
+                            <!-- Technical Skills -->
+                            <div class="skills-card tech">
+                                <div class="skills-header">
+                                    <i class="fas fa-code"></i>
+                                    <h4>Technical Skills</h4>
+                                </div>
+                                <p class="skills-desc">Production-oriented data science: clean pipelines, reproducible experiments, and robust models.</p>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Python (Pandas, NumPy, scikit-learn)</span><span>90%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>SQL (PostgreSQL, T-SQL)</span><span>85%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Risk & Financial Modeling</span><span>80%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>ML & Statistics</span><span>75%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:75%"></div></div>
+                                </div>
+                            </div>
+
+                            <!-- Soft Skills -->
+                            <div class="skills-card soft">
+                                <div class="skills-header">
+                                    <i class="fas fa-user-tie"></i>
+                                    <h4>Soft Skills</h4>
+                                </div>
+                                <p class="skills-desc">Leadership through clarity: communicate, structure, and perform under pressure.</p>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Communication</span><span>90%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:90%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Leadership & Coaching</span><span>85%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Problem Solving</span><span>88%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+                                </div>
+                                <div class="skill-item">
+                                    <div class="skill-label"><span>Teamwork</span><span>92%</span></div>
+                                    <div class="skill-bar"><div class="skill-fill" style="width:92%"></div></div>
+                                </div>
+                            </div>
+
+                            <!-- Methodologies & Approaches -->
+                            <div class="skills-card methods">
+                                <div class="skills-header">
+                                    <i class="fas fa-layer-group"></i>
+                                    <h4>Methodologies & Approaches</h4>
+                                </div>
+                                <p class="skills-desc">Structured workflows and rigorous evaluation to ensure reliable, interpretable outcomes.</p>
+                                <div class="skills-list">
+                                    <div class="item"><i class="fas fa-chart-line"></i><span>Statistical inference</span></div>
+                                    <div class="item"><i class="fas fa-recycle"></i><span>Machine learning lifecycle</span></div>
+                                    <div class="item"><i class="fas fa-check-double"></i><span>Cross-validation & model evaluation</span></div>
+                                    <div class="item"><i class="fas fa-flask"></i><span>Experiment design</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="about-details">
+                        <!-- Moved contact cards up to align with text -->
+                        <a href="mailto:jorge.moralf@gmail.com" class="stat-card">
+                            <i class="fas fa-envelope" style="margin:0; font-size: 1.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 1rem; margin:0;">Email</h4>
+                                <p style="margin:0; font-size: 0.9rem; color: var(--text-muted);">jorge.moralf@gmail.com</p>
+                            </div>
+                        </a>
+                        <a href="https://linkedin.com/in/jorge-moral-b043bb285" target="_blank" class="stat-card">
+                            <i class="fab fa-linkedin" style="margin:0; font-size: 1.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 1rem; margin:0;">LinkedIn</h4>
+                                <p style="margin:0; font-size: 0.9rem; color: var(--text-muted);">Connect with me</p>
+                            </div>
+                        </a>
+                        <div class="stat-card">
+                            <i class="fas fa-map-marker-alt" style="margin:0; font-size: 1.2rem;"></i>
+                            <div>
+                                <h4 style="font-size: 1rem; margin:0;">Location</h4>
+                                <p style="margin:0; font-size: 0.9rem; color: var(--text-muted);">Madrid, Spain</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Experience Section (Timeline) -->
+            <section id="experience">
+                <span class="section-label">Professional Journey</span>
+                
+                <div class="experience-grid">
+                    <!-- Item 1 -->
+                    <div class="job-card">
+                        <div class="job-date">2024 - Present</div>
+                        <div class="job-details">
+                            <div class="job-header">
+                                <div class="job-brand"><h3>Bankinter</h3></div>
+                                <img src="img/banklogo.png" alt="Bankinter" class="job-logo bankinter">
+                            </div>
+                            <h4>Data Scientist & Risk Analyst</h4>
+                            <p>Specializing in credit risk assessment and financial modeling. Utilizing statistical analysis to predict market trends, evaluate portfolio risks, and optimize decision-making strategies.</p>
+                            <ul class="bullet-list" style="margin-top: 10px;">
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-chart-line"></i></span><p>Monitoring key risk metrics: Probability of Default (PD) and portfolio performance indicators.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-database"></i></span><p>Data extraction and processing at scale with SAS and SQL.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-file-excel"></i></span><p>Excel dashboards and reporting to explore user behavior, risk patterns, and policy impact.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-sync-alt"></i></span><p>Continuous improvement in risk strategies through data-driven insights.</p></li>
+                            </ul>
+                            <div class="tags">
+                                <span class="tag">Python</span>
+                                <span class="tag">SQL</span>
+                                <span class="tag">Risk Modeling</span>
+                                <span class="tag">SAS</span>
+                                <span class="tag">Excel Dashboards</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="job-card">
+                        <div class="job-date">2020 - Present</div>
+                        <div class="job-details">
+                            <div class="job-header">
+                                <div class="job-brand"><h3>Tie-Break Tennis</h3></div>
+                                <img src="img/fototie.png" alt="Tie-Break" class="job-logo">
+                            </div>
+                            <h4>Professional Coach</h4>
+                            <p>Leading high-performance training sessions. Applying analytical thinking to player development, strategy formulation, and mental conditioning.</p>
+                            <ul class="bullet-list" style="margin-top: 10px;">
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-users"></i></span><p>Personalized programs focused on teamwork, discipline, and continuous improvement.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-comments"></i></span><p>Adaptive communication across ages and skill levels; clear objectives and trust-building.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-trophy"></i></span><p>Internal tournaments and competitive pathways promoting collaboration and resilience.</p></li>
+                                <li class="bullet-item"><span class="bullet-icon"><i class="fas fa-business-time"></i></span><p>Transferable skills: leadership, organization, motivation management, and performance under pressure.</p></li>
+                            </ul>
+                            <div class="tags">
+                                <span class="tag">Leadership</span>
+                                <span class="tag">Strategy</span>
+                                <span class="tag">Organization</span>
+                                <span class="tag">Performance</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education">
+                <span class="section-label">Academic Background</span>
+                
+                <div class="timeline-container">
+                    <!-- Item 1 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <img src="img/carlosIII.png" alt="UC3M" class="timeline-logo uc3m">
+                            <h3>UC3M</h3>
+                            <h4>Master in Big Data Analytics</h4>
+                            <p style="color: var(--text-muted); margin-top: 10px;">Specialized in Machine Learning, Bayesian Learning, and Predictive Modeling. Advanced training in Deep Learning architectures.</p>
+                            <span class="gpa-line">GPA: 9.2 / 10</span>
+                            <div class="tags">
+                                <span class="tag">Data Science</span>
+                                <span class="tag">Machine Learning</span>
+                            </div>
+                            <ul class="timeline-subpoints">
+                                <li><span class="dot"><i class="fas fa-brain"></i></span><span>Advanced ML: Tree ensembles, regularization, and model calibration.</span></li>
+                                <li><span class="dot"><i class="fas fa-sitemap"></i></span><span>Bayesian methods: inference, priors/posteriors, hierarchical models.</span></li>
+                                <li><span class="dot"><i class="fas fa-network-wired"></i></span><span>Deep Learning: CNN/RNN foundations and practical pipelines.</span></li>
+                            </ul>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date-box">
+                            <span class="timeline-date-text">2024</span>
+                            <span class="timeline-role">2025</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <img src="img/uam.png" alt="UAM" class="timeline-logo uc3m">
+                            <h3>UAM</h4>
+                            <h4>BSc Mathematics</h4>
+                            <p style="color: var(--text-muted); margin-top: 10px;">Strong foundation in Probability, Linear Algebra, and Optimization. Developed rigorous analytical and problem-solving skills.</p>
+                            <span class="gpa-line">GPA: 8.2 / 10</span>
+                            <div class="tags">
+                                <span class="tag">Mathematics</span>
+                                <span class="tag">Statistics</span>
+                            </div>
+                            <ul class="timeline-subpoints small">
+                                <li><span class="dot"><i class="fas fa-square-root-variable"></i></span><span>Probability & Statistics: measure theory basics, stochastic processes.</span></li>
+                                <li><span class="dot"><i class="fas fa-sliders-h"></i></span><span>Optimization: convex analysis, numerical optimization.</span></li>
+                                <li><span class="dot"><i class="fas fa-shapes"></i></span><span>Linear Algebra: spectral theory and matrix decompositions.</span></li>
+                            </ul>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date-box">
+                            <span class="timeline-date-text">2020</span>
+                            <span class="timeline-role">2024</span>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="timeline-item">
+                        <div class="timeline-content">
+                            <img src="img/palas.jpg" alt="Excellence Program" class="timeline-logo excellence">
+                            <h3>Excellence Program</h3>
+                            <h4>Bachillerato de Excelencia</h4>
+                            <p style="color: var(--text-muted); margin-top: 10px;">Selected for the High Academic Performance Program (STEM). Advanced curriculum in Mathematics, Physics, and Technical Drawing.</p>
+                            <span class="gpa-line">GPA: 9.7 / 10</span>
+                            <div class="tags">
+                                <span class="tag">STEM</span>
+                                <span class="tag">High Performance</span>
+                            </div>
+                            <ul class="timeline-subpoints small">
+                                <li><span class="dot"><i class="fas fa-calculator"></i></span><span>STEM Core: Mathematics, Physics, Technical Drawing.</span></li>
+                                <li><span class="dot"><i class="fas fa-flask"></i></span><span>Research project on ancient ballistics — first approach to academic research.</span></li>
+                            </ul>
+                        </div>
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-date-box">
+                            <span class="timeline-date-text">2018</span>
+                            <span class="timeline-role">2020</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects">
+                <span class="section-label">Selected Works</span>
+                
+                <!-- Intro to Selected Works -->
+                <div style="max-width: 900px; margin-bottom: 24px;">
+                    <p class="justify" style="color: var(--text-main); font-size: 1rem; line-height: 1.85;">
+                        Here you’ll find my Bachelor and Master theses—solid math foundations brought into real ML and Big Data use cases—plus two tennis projects where I mix technical analysis with the sport I love. It’s end‑to‑end work: exploring data, shaping features, and building predictive models with a focus on clarity and performance.
+                    </p>
+                </div>
+
+                <div class="project-grid">
+                    <!-- Project: TFG Publication (First) -->
+                    <div class="project-item">
+                        <div class="project-img-wrapper">
+                            <img src="img/Tfg_preview.png" alt="TFG: Gradient Flow Theory">
+                        </div>
+                        <div class="project-info">
+                            <h3>Gradient Flow Theory</h3>
+                            <span class="project-tagline">Mathematics • Optimization</span>
+                            <p>Thesis on Gradient Flow Theory applied to Neural Networks Optimization.</p>
+                            <a href="projects/TFG_Memoria_Jorge_Moral.pdf" target="_blank" class="link-arrow">Read Thesis <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Project: TFM (Second) -->
+                    <div class="project-item">
+                        <div class="project-img-wrapper">
+                            <img src="img/tfm_preview.png" alt="TFM: Bias and Fairness in ML">
+                        </div>
+                        <div class="project-info">
+                            <h3>Bias and Fairness in Machine Learning</h3>
+                            <span class="project-tagline">ML • Fairness</span>
+                            <p>Master's Thesis focusing on algorithmic fairness, metrics, and mitigation techniques.</p>
+                            <a href="projects/Master_thesis_Bias_and_Fairness.pdf" target="_blank" class="link-arrow">Read Thesis <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Project: ATP Predictive Models (Third) -->
+                    <div class="project-item">
+                        <div class="project-img-wrapper">
+                            <img class="tennis-img" src="img/atp_analysis_preview.png" alt="ATP Predictive Models">
+                        </div>
+                        <div class="project-info">
+                            <h3>ATP Predictive Models</h3>
+                            <span class="project-tagline">ML • Tennis • Prediction</span>
+                            <p>Machine Learning applied to professional tennis match outcomes.</p>
+                            <a href="projects/ATP_analysis_final.html" target="_blank" class="link-arrow">View Projects <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Project: Temporal Tennis Trends (Fourth) -->
+                    <div class="project-item">
+                        <div class="project-img-wrapper">
+                            <img class="tennis-img" src="img/tennis_preview.png" alt="Temporal Tennis Trends">
+                        </div>
+                        <div class="project-info">
+                            <h3>Temporal Tennis Trends</h3>
+                            <span class="project-tagline">Data • Trends • Insights</span>
+                            <p>Statistical analysis of the evolution of tennis over decades.</p>
+                            <a href="projects/TimeSeries_ATP_new.html" target="_blank" class="link-arrow">View Projects <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tennis Section -->
+            <section id="tennis">
+                <span class="section-label">The Sport</span>
+                <div class="tennis-layout">
+                    <div class="tennis-text">
+                        <p style="color: var(--text-muted); margin-bottom: 14px; font-size: 1rem;">
+                            I share here my greatest passion: tennis — a discipline that has taught me consistency, strategy, and mindset.
+                        </p>
+                        <div class="tennis-quote">
+                            "Tennis is a game of errors. The player who makes the fewest errors wins."
+                        </div>
+                        <p class="justify" style="color: var(--text-muted); margin-bottom: 16px; font-size: 1.05rem;">
+                            Achievement: led Daganzo club to the top levels of Madrid’s rankings alongside my teammates — an experience that reflects teamwork, dedication, and a winning mindset.
+                        </p>
+                    </div>
+                    <div>
+                        <div class="video-container" style="max-width: 480px;">
+                            <img src="img/tenisdaganzo.png" alt="Tennis Coaching" style="width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 16px;">
+                            <div style="font-size: 0.85rem; color: var(--text-muted); text-align: right; padding-top: 8px;">Team training — Madrid</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Final Media Showcase -->
+            <div class="final-media-grid">
+                <div>
+                    <div class="final-media-photo">
+                        <img src="img/tenisdaganzo.png" alt="Team training — Madrid">
+                    </div>
+                    <div class="final-summary">Team training — Madrid. Snapshot that reflects discipline and teamwork fostered during sessions.</div>
+                </div>
+                <div>
+                    <button class="play-video-btn" id="playTennisVideo" style="margin-bottom: 10px;"><i class="fas fa-play"></i> Play Tennis Video</button>
+                    <div class="final-media-video">
+                        <video controls poster="img/tenisdaganzo.png">
+                            <source src="img/videotenis.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                    <div class="final-summary">Highlights — Tie-Break Tennis. Short reel showcasing game situations, footwork drills and consistency under pressure.</div>
+                </div>
+            </div>
+
+            <footer style="padding: 50px 10%; border-top: 1px solid var(--glass-border); text-align: center; color: var(--text-muted); font-size: 0.9rem;">
+                <p>&copy; 2025 Jorge Moral Fernandez. All rights reserved.</p>
+            </footer>
+
+        </main>
     </div>
-    
-</div>
 
+    <script>
+        // --- Custom Cursor Logic Removed ---
+        /*
+        const cursor = document.querySelector('.cursor');
+        
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
 
+        // Hover effect for links
+        const links = document.querySelectorAll('a, button, .project-item, video');
+        links.forEach(link => {
+            link.addEventListener('mouseenter', () => {
+                cursor.classList.add('hovered');
+            });
+            link.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hovered');
+            });
+        });
+        */
 
-<div id="tennis" class="section">
-    <h2>My Tennis Journey</h2>
-    <p>I have been passionate about tennis for many years, both as a player and as a coach. With extensive experience on the court, I specialize in coaching players of all levels, from beginners to advanced. I combine my love for the sport with a data-driven approach to optimize training and match strategies.</p>
-    
-    <h3>Coaching Philosophy</h3>
-    <p>I believe in a personalized coaching approach, where every player receives tailored lessons based on their individual strengths and areas for improvement. My focus is not only on improving technical skills but also on developing mental resilience and match tactics.</p>
-    
-    <h3>Achievements</h3>
-    
-    <p>One of my proudest achievements as a coach is seeing my students develop not only the skills to compete but also a true passion for tennis. My goal has always been to instill in them the appreciation for the sport’s beauty, perseverance, and the values it embodies. Watching them grow both technically and mentally, and knowing that I've contributed to their love for the game, is truly rewarding. On a personal level, one of my standout achievements was leading a small club, like Daganzo, to the top levels of Madrid's tennis rankings, alongside my teammates. This experience taught me the power of teamwork and dedication, and I am extremely proud of what we accomplished together.<p>
-    
+        // --- Typewriter Effect ---
+        const text = "Data Analyst | Tennis Coach";
+        const typeWriterElement = document.getElementById('typewriter');
+        let i = 0;
 
-    <img src="img/tenisdaganzo.png" alt="Achievements" class="tennis-img">
-    <li>Campeones de Madrid Primera division Liga Absoluta.</li>
-    
-    <div id="tennis-video">
-        <h3>Watch Me Play</h3>
-        <p>Below is a short video where you can see how much I enjoy this wonderful sport. I hope it inspires you as much as it inspires me!🎾✊</p>
-
-        <video controls>
-            <source src="img/videotenis.mp4" type="video/mp4">
-            Your browser does not support the video tag.
-        </video>
-    </div>
-</div>
-
-<footer>
-    <nav>
-        <ul>
-            <li><a href="javascript:void(0);" onclick="showSection('about')">About Me</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('experience')">Experience</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('education')">Education</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('skills')">Skills</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('projects')">Projects</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('tennis')">Tennis</a></li>
-        </ul>
-    </nav>
-</footer>
-
-
-
-<script>
-    function showSection(sectionId) {
-        // Ocultar todas las secciones
-        const sections = document.querySelectorAll('.section');
-        sections.forEach(section => section.style.display = 'none');
-
-        // Mostrar la sección seleccionada
-        const sectionToShow = document.getElementById(sectionId);
-        if (sectionToShow) {
-            sectionToShow.style.display = 'block';
+        function typeWriter() {
+            if (i < text.length) {
+                typeWriterElement.innerHTML += text.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
         }
-    }
-</script>
+        
+        // Start typewriter when page loads
+        window.onload = typeWriter;
 
+        // --- Active Link Update ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-menu a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= (sectionTop - section.clientHeight / 3)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // --- Animate skills on scroll ---
+        const skillsCards = document.querySelectorAll('.skills-card');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+        skillsCards.forEach(card => observer.observe(card));
+
+        // Play button scrolls to final video and starts playback
+        const playBtn = document.getElementById('playTennisVideo');
+        playBtn?.addEventListener('click', () => {
+            const video = document.querySelector('.final-media-video video');
+            const finalSection = document.querySelector('.final-media-grid');
+            finalSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            setTimeout(() => { try { video?.play(); } catch(e){} }, 500);
+        });
+    </script>
 </body>
 </html>
+
+
